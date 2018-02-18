@@ -1,2 +1,2 @@
 # Javascript-Rainbow
-Simple HTML5 canvas rainbow written in Javascript
+Simple HTML5 canvas rainbow written in Javascript.
