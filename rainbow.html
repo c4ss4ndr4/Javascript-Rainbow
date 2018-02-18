@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Canvas tutorial</title>
+    <script>
+		//load the function with the page
+		function draw()
+		{
+		
+		//create canvas element, myCanvas
+		var myCanvas = document.getElementById("myCanvasTag")
+		var myContext = myCanvas.getContext('2d');
+		
+		//RGB tutorial compliments of http://www.krazydad.com/makecolors.php
+		//this function takes rgb values and returns hex
+		function RGB2Color(r,g,b)
+		{
+		return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
+		}
+		
+		//this is the function from www.krazydad.com/makecolors.php that produces rainbow colors from an algorithm
+		function byte2Hex(n)
+		{
+		var nybHexString = "0123456789ABCDEF";
+		return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
+		}
+		
+		//variables to change the rainbow frequency
+		var steps = 9;
+		var frequency = 2*Math.PI/steps;
+		
+		// var frequency = .6000;
+		var i = 0;
+		var y = 0;
+		
+		//drawing the rainbow rings
+		for ( i = 0, y = 0;
+		i < 8, y < 100;
+		y += 15, i++) {
+		myContext.beginPath();
+		myContext.arc(100,99, y, Math.PI, 0, false);
+		myContext.lineWidth = 15;
+		myContext.lineCap = 'round';
+		
+		//produce the rgb for each iteration of the rainbow
+		var red = Math.sin(frequency*i + 0) * 128 + 127;
+		var green = Math.sin(frequency*i + 2) * 128 + 127;
+		var blue = Math.sin(frequency*i + 4) * 128 + 127;
+		
+		//translate to hex
+		var HexColor = RGB2Color(red,green,blue);
+		myContext.strokeStyle = HexColor;
+		//draw the line
+		myContext.stroke();
+		}
+		}
+		</script>
+    <style type="text/css">
+      canvas { border: 0px solid white; }
+    </style>
+  </head>
+  <body onload="draw();">
+    <canvas id="myCanvasTag" width="auto" height="auto"></canvas>
+  </body>
+</html>
